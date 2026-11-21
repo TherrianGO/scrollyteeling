@@ -50,7 +50,8 @@ const ideaInput = document.querySelector('#reflection');
 const ideaStatus = document.querySelector('#reflection-note');
 const ideaKey = 'todo-cambia-reflexion-v1';
 try { ideaInput.value = localStorage.getItem(ideaKey) || ''; } catch { /* La lectura de la página no depende de localStorage. */ }
-document.querySelector('#save-reflection').addEventListener('click', () => {
+document.querySelector('#reflection-form').addEventListener('submit', (event) => {
+  event.preventDefault();
   const idea = ideaInput.value.trim();
   if (!idea) { ideaStatus.textContent = 'Escribe una idea antes de guardarla.'; ideaInput.focus(); return; }
   try {
