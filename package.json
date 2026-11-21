@@ -1,0 +1,14 @@
+{
+  "name": "scrollyteeling-transformacion-digital",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Una historia interactiva sobre la transformación digital: personas, procesos y tecnología.",
+  "scripts": {
+    "dev": "node scripts/serve.mjs",
+    "start": "node scripts/serve.mjs",
+    "build": "node scripts/build.mjs",
+    "check": "node --check app.js && node --check scripts/serve.mjs && node scripts/check.mjs"
+  },
+  "engines": { "node": ">=20" }
+}

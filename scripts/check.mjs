@@ -1,0 +1,13 @@
+import assert from 'node:assert/strict';
+import { readFile, access } from 'node:fs/promises';
+const html = await readFile('index.html', 'utf8');
+const css = await readFile('styles.css', 'utf8');
+const ids = [...html.matchAll(/\bid="([^"]+)"/g)].map(match => match[1]);
+assert.equal(ids.length, new Set(ids).size, 'Los IDs deben ser únicos');
+for (const [, target] of html.matchAll(/href="#([^"]+)"/g)) assert(ids.includes(target), `Ancla inexistente: ${target}`);
+assert.equal([...html.matchAll(/data-scene="/g)].length, 6, 'Deben existir seis escenas');
+assert.equal([...html.matchAll(/data-art="/g)].length, 6, 'Cada escena necesita una ilustración');
+for (const [, asset] of html.matchAll(/(?:src|href)="((?:assets\/|styles\.css|app\.js)[^"]*)"/g)) await access(asset);
+assert(css.includes('prefers-reduced-motion'), 'Falta alternativa de movimiento reducido');
+assert(html.includes('Esquema ilustrativo'), 'Los gráficos conceptuales deben identificarse');
+console.log('Verificado: escenas, ilustraciones, anclas, archivos locales y movimiento reducido.');
